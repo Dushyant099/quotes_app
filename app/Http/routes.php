@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -11,6 +10,19 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+
+
+Route::group(['middleware' => ['web']], function (){
+
+    Route::get('/', [
+        'uses' => 'QuoteController@getIndex',
+        'as' => 'index'
+    ]);
+
+    Route::post('/new',[
+        'uses' => 'QuoteController@postQuote',
+        'as' => 'new'
+    ]);
 });
+
