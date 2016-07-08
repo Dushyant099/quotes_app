@@ -11,18 +11,22 @@
 */
 
 
+Route::get('/', [
+    'uses' => 'QuoteController@getIndex',
+    'as' => 'index'
+]);
 
+Route::post('/new', [
+    'uses' => 'QuoteController@postQuote',
+    'as' => 'new'
+]);
+
+Route::get('/delete/{$quote_id}', [
+    'uses' => 'QuoteController@delete',
+    'as' => 'delete'
+]);
 
 Route::group(['middleware' => ['web']], function (){
-
-    Route::get('/', [
-        'uses' => 'QuoteController@getIndex',
-        'as' => 'index'
-    ]);
-
-    Route::post('/new',[
-        'uses' => 'QuoteController@postQuote',
-        'as' => 'new'
-    ]);
+   
 });
 

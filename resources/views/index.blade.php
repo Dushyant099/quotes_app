@@ -12,13 +12,28 @@
 {{--Content--}}
 @section('content')
 
+    @if(count($errors) > 0)
+        <section class="info-box fail">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{$error}}</li>
+                @endforeach
+            </ul>
+        </section>
+    @endif
+
+    @if(Session::has('success'))
+        <section class="info-box success">
+            {{Session::get('success')}}
+        </section>
+    @endif
     {{--Display quotes--}}
     <section class="quotes">
         <h1>Latest Quote</h1>
         @for($i = 0; $i < count($quotes); $i++)
             {{--{{ $i % 3 === 0 ? 'first-in-line' : ($i + 1) % 3 === 0 ? 'last-in0line': '' }} todo use this condition--}}
         <article class="quote">
-            <div class="delete"><a href="">X</a></div>
+            <div class="delete"><a href="{{ route('delete', ['quote_id' => $quotes[$i]->id]) }}">X</a></div>
                 {{ $quotes[$i]->quote }}
             <div class="info">Created By <a href="#">{{ $quotes[$i]->author->name }}</a> on {{ $quotes[$i]->created_at }}</div>
         </article>
